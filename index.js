@@ -70,7 +70,7 @@ const viewDepts = function () {
 const viewRoles = function () {
   // Query the roles' table
   db.query(
-    "SELECT * FROM roles JOIN departments ON roles.department_id = departments.department_id;",
+    "SELECT roles.job_title, roles.role_id, roles.salary, departments.department_name FROM roles JOIN departments ON roles.department_id = departments.department_id;",
     function (err, results) {
       if (err) {
         console.log(err);
@@ -85,7 +85,7 @@ const viewRoles = function () {
 const viewEmps = function () {
   // Query the employees table
   db.query(
-    "SELECT * FROM employees JOIN roles ON employees.role_id = roles.role_id JOIN departments ON roles.department_id = departments.department_id;",
+    "SELECT employees.employee_id, employees.first_name, employees.last_name, employees.manager_id, roles.job_title, roles.salary, departments.department_name  FROM employees JOIN roles ON employees.role_id = roles.role_id JOIN departments ON roles.department_id = departments.department_id;",
     function (err, results) {
       console.table(results);
       init();
