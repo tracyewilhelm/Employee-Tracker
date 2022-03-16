@@ -181,7 +181,7 @@ const addEmp = function () {
       console.log(answers);
 
       db.query(
-        "INSERT INTO roles SET ?",
+        "INSERT INTO employees SET ?",
         {
           first_name: answers.firstName,
           last_name: answers.lastName,
