@@ -2,8 +2,8 @@
 //the fifth set of prompts are to update an employee. These should also include the employee’s first name, last name, role, and manager
 
 //join the databases so that:
-//1. when you view the roles you are joining with department along department_id to which departments each role belongs to
-//2. when you view employee you are joining employee table with the previously created role/department join to see all of the data combined together
+//1. when you view the roles you are joining with department along department_id to which departments each role belongs to - done
+//2. when you view employee you are joining employee table with the previously created role/department join to see all of the data combined together - done
 
 //COMPLETED:
 //start with creating the schema, then create the seed info - done

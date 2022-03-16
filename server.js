@@ -3,7 +3,6 @@ const express = require("express");
 const mysql = require("mysql2");
 const cTable = require("console.table");
 const inquirer = require("inquirer");
-
 const PORT = process.env.PORT || 3333;
 const app = express();
 
@@ -56,10 +55,12 @@ const init = function () {
         addRole();
       } else if (response.option === "Add an employee") {
         addEmp();
-      } else if (response.option === "Update an employee role") {
+      } else if (response.option === "Update an employee") {
         updateEmp();
       } else {
-        goodbye();
+        console.log("goodbye");
+        process.exit();
+        // goodbye();
       }
     });
 };
@@ -206,13 +207,22 @@ const addEmp = function () {
       viewEmps();
     });
 };
+
+//create an array of employees so you can loop over it to find
+// const empArray = [];
+const empArray = [];
+const empList = empArray.push(db.query("SELECT first_name FROM employees"));
+console.log(empList);
+console.log(empArray);
+
 const updateEmp = function () {
   inquirer
     .prompt([
       {
-        type: "input",
-        message: "Employee ID you would like to update:",
-        name: "empID",
+        type: "list",
+        message: "which employee would you like to update:",
+        choices: empArray,
+        name: "empChoice",
       },
       {
         type: "input",
@@ -239,7 +249,7 @@ const updateEmp = function () {
       console.log(answers);
 
       db.query(
-        "INSERT INTO employees SET ?",
+        "UPDATE INTO employees SET ? WHERE roleID=answers.empChoice",
         {
           first_name: answers.firstName,
           last_name: answers.lastName,
@@ -248,14 +258,12 @@ const updateEmp = function () {
         },
         function (error) {
           if (error) throw error;
-          console.log("new employee added");
+          console.log("Employee updated");
         }
       );
       viewEmps();
     });
 };
-
-// const goodbye = () => ;
 
 init();
 
