@@ -116,6 +116,22 @@ connection.end();
 //         console.info(newDepartment, 'line 43');
 //     })
 
+//newest
+// const viewRoles = function () {
+//   // Query the roles' table
+//   db.query(
+//     "SELECT * FROM roles JOIN departments ON roles.department_id = departments.department_id;",
+//     function (err, results) {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         console.table(results);
+//       }
+//       // init();
+//     }
+//   );
+// };
+
 //new
 // const viewRoles = function () {
 //   // Query the roles' table

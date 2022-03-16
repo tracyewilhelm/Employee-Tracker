@@ -81,18 +81,21 @@ const viewRoles = function () {
         console.log(err);
       } else {
         console.table(results);
+        init();
       }
-      // init();
     }
   );
 };
 
 const viewEmps = function () {
   // Query the employees table
-  db.query("SELECT * FROM employees ", function (err, results) {
-    console.table(results);
-    init();
-  });
+  db.query(
+    "SELECT * FROM employees JOIN roles ON employees.role_id = roles.role_id JOIN departments ON roles.department_id = departments.department_id;",
+    function (err, results) {
+      console.table(results);
+      init();
+    }
+  );
 };
 
 const addDept = function () {
@@ -116,9 +119,8 @@ const addDept = function () {
           console.log("new department added");
         }
       );
-      // init();
+      viewDepts();
     });
-  // viewDepts();
 };
 
 const addRole = function () {
@@ -157,9 +159,8 @@ const addRole = function () {
           console.log("new role added");
         }
       );
-      // init();
+      viewRoles();
     });
-  // viewRoles();
 };
 
 const addEmp = function () {
@@ -202,9 +203,8 @@ const addEmp = function () {
           console.log("new employee added");
         }
       );
-      // init();
+      viewEmps();
     });
-  // viewEmps();
 };
 const updateEmp = function () {
   inquirer
@@ -251,12 +251,11 @@ const updateEmp = function () {
           console.log("new employee added");
         }
       );
-      // init();
+      viewEmps();
     });
-  // viewEmps();
 };
 
-const goodbye = () => Connection.end();
+// const goodbye = () => ;
 
 init();
 
