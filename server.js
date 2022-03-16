@@ -107,8 +107,9 @@ const addDept = function () {
           console.log("new department added");
         }
       );
+      // init();
     });
-  //   init();
+  // viewDepts();
 };
 
 const addRole = function () {
@@ -120,7 +121,7 @@ const addRole = function () {
         name: "newJobTitle",
       },
       {
-        type: "choice",
+        type: "number",
         message:
           "Department ID (Administration = 1, Educator = 2, Staff = 3, Ghost = 4):",
         name: "DeptID",
@@ -133,11 +134,13 @@ const addRole = function () {
     ])
     .then(function (answers) {
       console.log(answers);
+      const dept_id = parseInt(answers.DeptID);
+      console.log(typeof dept_id, dept_id);
       db.query(
         "INSERT INTO roles SET ?",
         {
           job_title: answers.newJobTitle,
-          department_id: answers.newDeptName,
+          department_id: dept_id,
           salary: answers.newSalary,
         },
         function (error) {
@@ -145,32 +148,56 @@ const addRole = function () {
           console.log("new role added");
         }
       );
+      // init();
     });
-  //   init();
+  // viewRoles();
 };
 
 const addEmp = function () {
-  db.query(
-    "INSERT INTO employees (employee_id, first_name, last_name, role_id, department_id, salary, manager_id) VALUES (res1, res2, res3, res4, res5, res6, res7);",
-    function (err, newDept) {
-      console.log(newDept, " has been added to the Departments table");
-    }
-  );
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "First name:",
+        name: "firstName",
+      },
+      {
+        type: "input",
+        message: "Last name:",
+        name: "lastName",
+      },
+      {
+        type: "number",
+        message: "Role ID:",
+        name: "roleID",
+      },
+      {
+        type: "number",
+        message: "Manager ID:",
+        name: "managerID",
+      },
+    ])
+    .then(function (answers) {
+      console.log(answers);
+      db.query(
+        "INSERT INTO roles SET ?",
+        {
+          first_name: answers.firstName,
+          last_name: answers.lastName,
+          role_id: answers.roleID,
+          manager_id: answers.managerID,
+        },
+        function (error) {
+          if (error) throw error;
+          console.log("new employee added");
+        }
+      );
+      init();
+    });
   viewEmps();
 };
 
-// const goodbye = () =>
-//   inquirer
-//     .prompt([
-//       {
-//         name: "moreQuery",
-//         type: "confirm",
-//         message: "Want to do anything else?",
-//       },
-//     ])
-//     .then((answer) => {
-//       if (answer.moreQuery) return init();
-//     });
+const goodbye = () => Connection.end();
 
 init();
 
@@ -182,9 +209,3 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-// function viewEmployee() {
-//   db.query("SELECT * FROM management_db", function (err, results) {
-//     console.log(results);
-//   });
-// }

@@ -82,33 +82,30 @@
 // roles.push({name: results[i].title, value:results[i].id })
 // }
 
-
 connection.end();
-    
-    
-    .then((response) => {
-      const { newDeptName, newDeptID } = response;
-      //   console.log(newDeptName, newDeptID, "line 105");
-      const DeptName = newDeptName;
-      const DeptID = newDeptID;
-      //   console.log(DeptName, DeptID, "line 108");
-      const newDept = DeptName + DeptID;
-      db.query(
-        `INSERT INTO departments (id, name) VALUES (DeptName, DeptID);`,
-        function (err, newDept) {
-          console.log(newDept, " has been added to the Departments table");
-        }
-      );
-        viewDepts();
-    
 
-const newDept = [DeptName, DeptID];
+//     .then((response) => {
+//       const { newDeptName, newDeptID } = response;
+//       //   console.log(newDeptName, newDeptID, "line 105");
+//       const DeptName = newDeptName;
+//       const DeptID = newDeptID;
+//       //   console.log(DeptName, DeptID, "line 108");
+//       const newDept = DeptName + DeptID;
+//       db.query(
+//         `INSERT INTO departments (id, name) VALUES (DeptName, DeptID);`,
+//         function (err, newDept) {
+//           console.log(newDept, " has been added to the Departments table");
+//         }
+//       );
+//         viewDepts();
 
-            .then((data) => {
-        if (data.init_Choice === "Add a new Department?") {
-            const department = new Department(data.getId, data.getDepartment_name)
-            return newDepartment.push(department)
-        }
-        console.log(`${data.getDepartment_name} DEPARTMENT HAS BEEN CREATED!`)
-        console.info(newDepartment, 'line 43');
-    })
+// const newDept = [DeptName, DeptID];
+
+//             .then((data) => {
+//         if (data.init_Choice === "Add a new Department?") {
+//             const department = new Department(data.getId, data.getDepartment_name)
+//             return newDepartment.push(department)
+//         }
+//         console.log(`${data.getDepartment_name} DEPARTMENT HAS BEEN CREATED!`)
+//         console.info(newDepartment, 'line 43');
+//     })
