@@ -30,7 +30,7 @@ const init = function () {
           "Add a department",
           "Add a role",
           "Add an employee",
-          "Update an employee role",
+          "Update an employee",
           "Exit",
         ],
         name: "option",
@@ -202,64 +202,69 @@ const addEmp = function () {
     });
 };
 
-//create an array of employees so you can loop over it to find
-// const empArray = [];
-
 const updateEmp = function () {
-  const empArray = [];
-  const empList = empArray.push(
-    JSON.stringify(db.query("SELECT first_name FROM employees"))
-  );
-  console.log(empList);
-  console.log(empArray);
+  db.query("SELECT first_name, employee_id FROM employees", (err, results) => {
+    if (err) {
+      console.log(err);
+    }
+    let empArray = [];
+    for (let i = 0; i < results.length; i++) {
+      empArray.push({
+        name: results[i].first_name,
+        value: results[i].employee_id,
+      });
+    }
+    // console.log(empArray);
 
-  inquirer
-    .prompt([
-      {
-        type: "list",
-        message: "which employee would you like to update:",
-        choices: empArray,
-        name: "empChoice",
-      },
-      {
-        type: "input",
-        message: "First name:",
-        name: "firstName",
-      },
-      {
-        type: "input",
-        message: "Last name:",
-        name: "lastName",
-      },
-      {
-        type: "number",
-        message: "Role ID:",
-        name: "roleID",
-      },
-      {
-        type: "number",
-        message: "Manager ID:",
-        name: "managerID",
-      },
-    ])
-    .then(function (answers) {
-      console.log(answers);
-
-      db.query(
-        "UPDATE INTO employees SET ? WHERE roleID=answers.empChoice",
+    console.log(empArray);
+    inquirer
+      .prompt([
         {
-          first_name: answers.firstName,
-          last_name: answers.lastName,
-          role_id: answers.roleID,
-          manager_id: answers.managerID,
+          type: "list",
+          message: "which employee would you like to update:",
+          choices: empArray,
+          name: "empChoice",
         },
-        function (error) {
-          if (error) throw error;
-          console.log("Employee updated");
-        }
-      );
-      viewEmps();
-    });
+        {
+          type: "input",
+          message: "First name:",
+          name: "firstName",
+        },
+        {
+          type: "input",
+          message: "Last name:",
+          name: "lastName",
+        },
+        {
+          type: "number",
+          message: "Role ID:",
+          name: "roleID",
+        },
+        {
+          type: "number",
+          message: "Manager ID:",
+          name: "managerID",
+        },
+      ])
+      .then(function (answers) {
+        console.log(answers);
+
+        db.query(
+          `UPDATE employees SET ? WHERE employee_id=${answers.empChoice}`,
+          {
+            first_name: answers.firstName,
+            last_name: answers.lastName,
+            role_id: answers.roleID,
+            manager_id: answers.managerID,
+          },
+          function (error) {
+            if (error) throw error;
+            console.log("Employee updated");
+          }
+        );
+        viewEmps();
+      });
+  });
 };
 
 init();
