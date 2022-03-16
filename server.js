@@ -23,6 +23,7 @@ const db = mysql.createConnection(
   },
   console.log(`Connected to the hogwarts_db database.`)
 );
+//init function to begin the prompts
 const init = function () {
   inquirer
     .prompt([
@@ -62,6 +63,7 @@ const init = function () {
       }
     });
 };
+//function to view the departments
 const viewDepts = function () {
   // Query the department's table
   db.query("SELECT * FROM departments", function (err, results) {
@@ -72,15 +74,22 @@ const viewDepts = function () {
 
 const viewRoles = function () {
   // Query the roles' table
-  db.query("SELECT * FROM roles", function (err, results) {
-    console.table(results);
-    init();
-  });
+  db.query(
+    "SELECT * FROM roles JOIN departments ON roles.department_id = departments.department_id;",
+    function (err, results) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.table(results);
+      }
+      // init();
+    }
+  );
 };
 
 const viewEmps = function () {
   // Query the employees table
-  db.query("SELECT * FROM employees", function (err, results) {
+  db.query("SELECT * FROM employees ", function (err, results) {
     console.table(results);
     init();
   });
@@ -156,6 +165,55 @@ const addRole = function () {
 const addEmp = function () {
   inquirer
     .prompt([
+      {
+        type: "input",
+        message: "First name:",
+        name: "firstName",
+      },
+      {
+        type: "input",
+        message: "Last name:",
+        name: "lastName",
+      },
+      {
+        type: "number",
+        message: "Role ID:",
+        name: "roleID",
+      },
+      {
+        type: "number",
+        message: "Manager ID:",
+        name: "managerID",
+      },
+    ])
+    .then(function (answers) {
+      console.log(answers);
+
+      db.query(
+        "INSERT INTO employees SET ?",
+        {
+          first_name: answers.firstName,
+          last_name: answers.lastName,
+          role_id: answers.roleID,
+          manager_id: answers.managerID,
+        },
+        function (error) {
+          if (error) throw error;
+          console.log("new employee added");
+        }
+      );
+      // init();
+    });
+  // viewEmps();
+};
+const updateEmp = function () {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Employee ID you would like to update:",
+        name: "empID",
+      },
       {
         type: "input",
         message: "First name:",

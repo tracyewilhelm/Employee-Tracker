@@ -1,3 +1,11 @@
+//TO BE DONE:
+//the fifth set of prompts are to update an employee. These should also include the employee’s first name, last name, role, and manager
+
+//join the databases so that:
+//1. when you view the roles you are joining with department along department_id to which departments each role belongs to
+//2. when you view employee you are joining employee table with the previously created role/department join to see all of the data combined together
+
+//COMPLETED:
 //start with creating the schema, then create the seed info - done
 
 //we need to create a database. The database needs to include 3 tables - done
@@ -13,13 +21,11 @@
 //we need a node.js set of command line prompts.
 //the first set of prompts are : view all departmentsview all roles, view all employees, add a department, add a role, add an employee, and update an employee role - done
 
-// the second set of prompts are: to add a department (what is the new department name?)
+// the second set of prompts are: to add a department (what is the new department name?) - done
 
-//the third set of propmpts are: to add a role (what is the new role?)
+//the third set of propmpts are: to add a role (what is the new role?) - done
 
-//the fourth set of prompts are to add an employee. These include: the employee’s first name, last name, role, and manager
-
-//the fifth set of prompts are to update an employee. These should also include the employee’s first name, last name, role, and manager
+//the fourth set of prompts are to add an employee. These include: the employee’s first name, last name, role, and manager - done
 
 //this works currently:
 ////Import and require express and mysql2; create port; call express
@@ -109,3 +115,24 @@ connection.end();
 //         console.log(`${data.getDepartment_name} DEPARTMENT HAS BEEN CREATED!`)
 //         console.info(newDepartment, 'line 43');
 //     })
+
+//new
+// const viewRoles = function () {
+//   // Query the roles' table
+//   db.query(
+//     "SELECT roles.job_title, roles.role_id, roles.department_id, roles.salary FROM roles JOIN departments ON roles.department_id = departments.department_id;",
+//     function (err, results) {
+//       console.table(results);
+//       init();
+//     }
+//   );
+// };
+
+//old
+const viewRoles = function () {
+  // Query the roles' table
+  db.query("SELECT * FROM roles", function (err, results) {
+    console.table(results);
+    init();
+  });
+};
