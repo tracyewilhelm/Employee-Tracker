@@ -52,6 +52,8 @@ You are required to submit BOTH of the following for review:
 
 - A walkthrough video demonstrating the functionality of the application.
 
+https://drive.google.com/file/d/1gayJbNYV3AoATgVfDlHwhp3O2ZN5my-C/view
+
 - The URL of the GitHub repository, with a unique name and a README describing the project.
 
 https://github.com/tracyewilhelm/Employee-Tracker
