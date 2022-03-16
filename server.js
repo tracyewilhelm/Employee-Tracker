@@ -179,6 +179,7 @@ const addEmp = function () {
     ])
     .then(function (answers) {
       console.log(answers);
+
       db.query(
         "INSERT INTO roles SET ?",
         {
@@ -192,9 +193,9 @@ const addEmp = function () {
           console.log("new employee added");
         }
       );
-      init();
+      // init();
     });
-  viewEmps();
+  // viewEmps();
 };
 
 const goodbye = () => Connection.end();
