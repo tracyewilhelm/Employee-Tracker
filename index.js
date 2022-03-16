@@ -1,10 +1,8 @@
-//Import and require express and mysql2; create port; call express
+//Import and require inquirer and mysql2; create port
 
 const mysql = require("mysql2");
 const cTable = require("console.table");
 const inquirer = require("inquirer");
-const PORT = process.env.PORT || 3333;
-const app = express();
 
 // Connect to database - create a connection object
 const db = mysql.createConnection(
@@ -206,12 +204,15 @@ const addEmp = function () {
 
 //create an array of employees so you can loop over it to find
 // const empArray = [];
-const empArray = [];
-const empList = empArray.push(db.query("SELECT first_name FROM employees"));
-console.log(empList);
-console.log(empArray);
 
 const updateEmp = function () {
+  const empArray = [];
+  const empList = empArray.push(
+    JSON.stringify(db.query("SELECT first_name FROM employees"))
+  );
+  console.log(empList);
+  console.log(empArray);
+
   inquirer
     .prompt([
       {
