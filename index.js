@@ -214,7 +214,6 @@ const updateEmp = function () {
         value: results[i].employee_id,
       });
     }
-    // console.log(empArray);
 
     console.log(empArray);
     inquirer
